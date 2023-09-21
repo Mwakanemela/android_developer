@@ -7,6 +7,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.instagramclone.Models.User
 import com.example.instagramclone.databinding.ActivitySignUpBinding
 import com.example.instagramclone.utils.USER_NODE
+import com.example.instagramclone.utils.USER_PROFILE_FOLDER
+import com.example.instagramclone.utils.uploadImage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -21,7 +23,14 @@ class SignUpActivity : AppCompatActivity() {
     private val launcher = registerForActivityResult(ActivityResultContracts.GetContent()) {
         uri ->
         uri?.let {
-
+            uploadImage(uri, USER_PROFILE_FOLDER){
+                if(it == null) {
+                    Toast.makeText(this@SignUpActivity, "Cannot accept image", Toast.LENGTH_LONG).show()
+                }else {
+                    user.image = it
+                    binding.profileImage.setImageURI(uri)
+                }
+            }
         }
     }
 
@@ -70,6 +79,9 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+        binding.profileImage.setOnClickListener {
+            launcher.launch("image/*")
         }
     }
 }
