@@ -33,6 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_image">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible" />
@@ -52,6 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textField">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible" />
@@ -71,13 +73,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textField1">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/elevatedButton"
+        android:id="@+id/register"
         style="@style/Widget.Material3.Button.Icon"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -99,7 +102,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/elevatedButton"
+        app:layout_constraintTop_toBottomOf="@+id/register"
         app:layout_constraintVertical_bias="0.185" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
