@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity">
+    tools:context=".LoginActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="154dp"
         android:layout_height="124dp"
         android:layout_marginTop="92dp"
-        android:src="@drawable/profile"
+        android:src="@drawable/me"
         app:civ_border_color="#AF8888"
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,38 +19,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="32dp"
-        android:id="@+id/textField"
-        android:hint="Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textField1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="32dp"
         android:hint="Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField">
+        app:layout_constraintTop_toBottomOf="@+id/profile_image">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
@@ -80,29 +61,33 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/register"
+        android:id="@+id/login_btn"
         style="@style/Widget.Material3.Button.Icon"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="#3F51B5"
-        android:text="Sign Up"
+        android:text="Sign In"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/textField2"
         app:layout_constraintStart_toStartOf="@+id/textField2"
         app:layout_constraintTop_toBottomOf="@+id/textField2" />
 
-    <TextView
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Already have an account? Login"
-        android:textSize="24sp"
+    <Button
+        android:id="@+id/register_btn"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:elevation="20dp"
+        android:text="Sign Up"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register"
-        app:layout_constraintVertical_bias="0.185" />
+        app:layout_constraintEnd_toEndOf="@+id/login_btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/login_btn"
+        app:layout_constraintTop_toBottomOf="@+id/login_btn"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,9 @@
 package com.example.instagramclone
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.instagramclone.Models.User
@@ -39,6 +41,8 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val text = "<font color=#FF000000>Already have an account?</font> <font color=#3B57F3>Login</font>"
+        binding.login.setText(Html.fromHtml(text))
         user = User()
 
         binding.register.setOnClickListener {
@@ -68,7 +72,8 @@ class SignUpActivity : AppCompatActivity() {
                             .document(Firebase.auth.currentUser!!.uid).set(user)
                             .addOnSuccessListener {
                                 Toast.makeText(this@SignUpActivity, "Kulembetsa Kwatheka", Toast.LENGTH_SHORT).show()
-
+                                startActivity(Intent(this@SignUpActivity, HomeActivity::class.java))
+                                finish()
                             }
                         Toast.makeText(this@SignUpActivity, "Registration Successful", Toast.LENGTH_SHORT).show()
                         Toast.makeText(this@SignUpActivity, "Kulembetsa Kwatheka", Toast.LENGTH_SHORT).show()
@@ -82,6 +87,10 @@ class SignUpActivity : AppCompatActivity() {
         }
         binding.profileImage.setOnClickListener {
             launcher.launch("image/*")
+        }
+        binding.login.setOnClickListener {
+            startActivity(Intent(this@SignUpActivity, LoginActivity::class.java))
+            //finish()
         }
     }
 }
