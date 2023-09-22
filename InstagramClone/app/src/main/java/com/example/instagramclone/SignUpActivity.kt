@@ -14,21 +14,23 @@ import com.example.instagramclone.utils.uploadImage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class SignUpActivity : AppCompatActivity() {
 
-    private lateinit var binding:ActivitySignUpBinding
-    private lateinit var user:User
+    private lateinit var binding: ActivitySignUpBinding
+    private lateinit var user: User
 
 
-    private val launcher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        uri ->
+    private val launcher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri?.let {
-            uploadImage(uri, USER_PROFILE_FOLDER){
-                if(it == null) {
-                    Toast.makeText(this@SignUpActivity, "Cannot accept image", Toast.LENGTH_LONG).show()
-                }else {
+            uploadImage(uri, USER_PROFILE_FOLDER) {
+                if (it == null) {
+                    Toast.makeText(this@SignUpActivity, "Cannot accept image", Toast.LENGTH_LONG)
+                        .show()
+                } else {
                     user.image = it
                     binding.profileImage.setImageURI(uri)
                 }
@@ -41,49 +43,109 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val text = "<font color=#FF000000>Already have an account?</font> <font color=#3B57F3>Login</font>"
+        val text =
+            "<font color=#FF000000>Already have an account?</font> <font color=#3B57F3>Login</font>"
         binding.login.setText(Html.fromHtml(text))
         user = User()
 
+        if (intent.hasExtra("MODE")) {
+            if (intent.getIntExtra("MODE", -1) == 1) {
+                binding.register.text = "Update Profile"
+
+                Firebase.firestore.collection(USER_NODE).document(Firebase.auth.currentUser!!.uid)
+                    .get().addOnSuccessListener {
+                        user = it.toObject<User>()!!
+
+                        if (!user.image.isNullOrEmpty()) {
+                            Picasso.get().load(user.image).into(binding.profileImage)
+                        }
+
+                        binding.name.setText(user.name)
+                        binding.email.setText(user.email)
+                        binding.password.setText(user.password)
+                    }
+            }
+        }
         binding.register.setOnClickListener {
-           val name = binding.name.text.toString().trim()
-           val email = binding.email.text.toString().trim()
-           val password = binding.password.text.toString().trim()
+            if (intent.hasExtra("MODE")) {
+                if (intent.getIntExtra("MODE", -1) == 1) {
 
-            //val db = Firebase.firestore
-            if((binding.name.text.toString().trim() == "")
-                or (binding.name.text.toString().trim() == "")
-                or (binding.name.text.toString().trim() == "")
-            ) {
-                Toast.makeText(this@SignUpActivity, "Fill out all fields", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@SignUpActivity, "Lembani muma box onse", Toast.LENGTH_SHORT).show()
+                    Firebase.firestore.collection(USER_NODE)
+                        .document(Firebase.auth.currentUser!!.uid).set(user)
+                        .addOnSuccessListener {
+                            Toast.makeText(
+                                this@SignUpActivity,
+                                "Kulembetsa Kwatheka",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            startActivity(
+                                Intent(
+                                    this@SignUpActivity,
+                                    HomeActivity::class.java
+                                )
+                            )
+                            finish()
+                        }
+                }
+            } else {
+                val name = binding.name.text.toString().trim()
+                val email = binding.email.text.toString().trim()
+                val password = binding.password.text.toString().trim()
 
-            }else {
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                    email, password
-                ).addOnCompleteListener {
-                    result ->
-                    if(result.isSuccessful) {
+                //val db = Firebase.firestore
+                if ((binding.name.text.toString().trim() == "")
+                    or (binding.name.text.toString().trim() == "")
+                    or (binding.name.text.toString().trim() == "")
+                ) {
+                    Toast.makeText(this@SignUpActivity, "Fill out all fields", Toast.LENGTH_SHORT)
+                        .show()
+                    Toast.makeText(this@SignUpActivity, "Lembani muma box onse", Toast.LENGTH_SHORT)
+                        .show()
 
-                        user.name = name
-                        user.email = email
-                        user.password = password
-                        Firebase.firestore.collection(USER_NODE)
-                            .document(Firebase.auth.currentUser!!.uid).set(user)
-                            .addOnSuccessListener {
-                                Toast.makeText(this@SignUpActivity, "Kulembetsa Kwatheka", Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(this@SignUpActivity, HomeActivity::class.java))
-                                finish()
-                            }
-                        Toast.makeText(this@SignUpActivity, "Registration Successful", Toast.LENGTH_SHORT).show()
-                        Toast.makeText(this@SignUpActivity, "Kulembetsa Kwatheka", Toast.LENGTH_SHORT).show()
+                } else {
+                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                        email, password
+                    ).addOnCompleteListener { result ->
+                        if (result.isSuccessful) {
 
-                        binding.name.setText("")
-                        binding.email.setText("")
-                        binding.password.setText("")
+                            user.name = name
+                            user.email = email
+                            user.password = password
+                            Firebase.firestore.collection(USER_NODE)
+                                .document(Firebase.auth.currentUser!!.uid).set(user)
+                                .addOnSuccessListener {
+                                    Toast.makeText(
+                                        this@SignUpActivity,
+                                        "Kulembetsa Kwatheka",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    startActivity(
+                                        Intent(
+                                            this@SignUpActivity,
+                                            HomeActivity::class.java
+                                        )
+                                    )
+                                    finish()
+                                }
+                            Toast.makeText(
+                                this@SignUpActivity,
+                                "Registration Successful",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            Toast.makeText(
+                                this@SignUpActivity,
+                                "Kulembetsa Kwatheka",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            binding.name.setText("")
+                            binding.email.setText("")
+                            binding.password.setText("")
+                        }
                     }
                 }
             }
+
         }
         binding.profileImage.setOnClickListener {
             launcher.launch("image/*")

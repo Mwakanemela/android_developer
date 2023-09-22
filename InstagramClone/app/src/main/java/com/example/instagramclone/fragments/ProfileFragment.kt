@@ -1,5 +1,6 @@
 package com.example.instagramclone.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.instagramclone.Models.User
 import com.example.instagramclone.R
+import com.example.instagramclone.SignUpActivity
 import com.example.instagramclone.databinding.FragmentProfileBinding
 import com.example.instagramclone.utils.USER_NODE
 import com.google.firebase.auth.ktx.auth
@@ -31,6 +33,15 @@ class ProfileFragment : Fragment() {
     ): View? {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        binding.editProfile.setOnClickListener {
+            val intent = Intent(activity, SignUpActivity::class.java)
+            intent.putExtra("MODE", 1)
+            activity?.startActivity(intent)
+            activity?.finish()
+        }
+
+
         return binding.root
     }
 
