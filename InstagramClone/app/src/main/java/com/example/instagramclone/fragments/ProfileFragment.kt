@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.example.instagramclone.Models.User
 import com.example.instagramclone.R
 import com.example.instagramclone.SignUpActivity
+import com.example.instagramclone.adapters.ViewPagerAdapter
 import com.example.instagramclone.databinding.FragmentProfileBinding
 import com.example.instagramclone.utils.USER_NODE
 import com.google.firebase.auth.ktx.auth
@@ -21,7 +22,7 @@ import com.squareup.picasso.Picasso
 class ProfileFragment : Fragment() {
 
     private lateinit var binding:FragmentProfileBinding
-
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,7 +42,12 @@ class ProfileFragment : Fragment() {
             activity?.finish()
         }
 
+        viewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager)
+        viewPagerAdapter.addFragments(MyPostFragment(), "My Post(s)")
+        viewPagerAdapter.addFragments(MyReelsFragment(), "My Reels")
 
+        binding.viewPager.adapter = viewPagerAdapter
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
         return binding.root
     }
 
