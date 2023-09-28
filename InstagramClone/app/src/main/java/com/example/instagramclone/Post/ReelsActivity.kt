@@ -9,17 +9,20 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.instagramclone.HomeActivity
 import com.example.instagramclone.Models.Post
 import com.example.instagramclone.Models.Reel
+import com.example.instagramclone.Models.User
 import com.example.instagramclone.R
 import com.example.instagramclone.databinding.ActivityReelsBinding
 import com.example.instagramclone.utils.POST
 import com.example.instagramclone.utils.POST_FOLDER
 import com.example.instagramclone.utils.REEL
 import com.example.instagramclone.utils.REEL_FOLDER
+import com.example.instagramclone.utils.USER_NODE
 import com.example.instagramclone.utils.USER_PROFILE_FOLDER
 import com.example.instagramclone.utils.uploadImage
 import com.example.instagramclone.utils.uploadVideo
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 class ReelsActivity : AppCompatActivity() {
@@ -70,18 +73,25 @@ class ReelsActivity : AppCompatActivity() {
         }
 
         binding.postButton.setOnClickListener {
-            val reel = Reel(videoUrl!!, binding.reelTxt.text.toString())
 
-            Firebase.firestore.collection(REEL).document().set(reel).addOnSuccessListener {
-                //create new document with new id
-                Firebase.firestore.collection(Firebase.auth.currentUser!!.uid+REEL)
-                    .document().set(reel)
-                    .addOnSuccessListener {
-                        startActivity(Intent(this@ReelsActivity, HomeActivity::class.java))
-                        finish()
+            Firebase.firestore.collection(USER_NODE)
+                .document(Firebase.auth.currentUser!!.uid)
+                .get().addOnSuccessListener {
+                    var user: User? = it.toObject<User>()
+                    val reel = Reel(videoUrl!!, binding.reelTxt.text.toString(), user?.image!!)
+
+
+                    Firebase.firestore.collection(REEL).document().set(reel).addOnSuccessListener {
+                        //create new document with new id
+                        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid+REEL)
+                            .document().set(reel)
+                            .addOnSuccessListener {
+                                startActivity(Intent(this@ReelsActivity, HomeActivity::class.java))
+                                finish()
+                            }
+
                     }
-
-            }
+                }
         }
     }
 }

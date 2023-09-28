@@ -38,8 +38,9 @@ fun uploadVideo(
                 callback(imageUrl)
             }
         }
-        .addOnProgressListener {
-            val uploadedValue:Long = it.bytesTransferred / it.totalByteCount
-            progressDialog.setMessage("Uploaded: $uploadedValue %")
+        .addOnProgressListener { taskSnapshot ->
+            val uploadedValue: Double = (taskSnapshot.bytesTransferred.toDouble() / taskSnapshot.totalByteCount) * 100
+            progressDialog.setMessage("Uploaded: ${uploadedValue.toInt()} %")
         }
+
 }
