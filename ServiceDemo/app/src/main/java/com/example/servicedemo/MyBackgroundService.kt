@@ -14,6 +14,9 @@ class MyBackgroundService:Service(){
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         Log.i(MYTAG, "Service Started")
+        val name = intent?.getStringExtra(NAME)
+        Log.i(MYTAG, "Name is $name")
+
         return START_STICKY
     }
     override fun onBind(p0: Intent?): IBinder? {
@@ -28,5 +31,6 @@ class MyBackgroundService:Service(){
     companion object{
 
         const val MYTAG = "MYTAG"
+        const val NAME = "NAME"
     }
 }

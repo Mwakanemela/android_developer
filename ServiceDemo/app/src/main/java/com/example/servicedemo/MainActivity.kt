@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.example.servicedemo.databinding.ActivityMainBinding
 import android.util.Log
 import com.example.servicedemo.MyBackgroundService.Companion.MYTAG
+import com.example.servicedemo.MyBackgroundService.Companion.NAME
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val serviceIntent = Intent(this, MyBackgroundService::class.java)
-
+        serviceIntent.putExtra(NAME, "Mwaka")
         binding.btnStart.setOnClickListener {
 
             Log.i(MYTAG, "Starting Service")
