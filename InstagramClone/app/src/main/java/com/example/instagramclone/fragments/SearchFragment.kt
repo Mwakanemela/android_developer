@@ -10,7 +10,7 @@ import com.example.instagramclone.databinding.FragmentSearchBinding
 
 
 class SearchFragment : Fragment() {
-    lateinit var binding:FragmentSearchBinding
+    lateinit var binding: FragmentSearchBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,8 +22,9 @@ class SearchFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(inflater, container, false)
-        binding.root
+        return binding.root
     }
+
 
     companion object {
 
