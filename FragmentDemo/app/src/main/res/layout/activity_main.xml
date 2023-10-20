@@ -52,8 +52,24 @@
 android:visibility="visible"
                 android:text="Main Activity"
                 android:textSize="34sp" />
+
         </LinearLayout>
 
     </FrameLayout>
+
+    <EditText
+        android:id="@+id/mainActivityEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Enter anything"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.904" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

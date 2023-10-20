@@ -19,7 +19,7 @@ class FirstFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_first, container, false)
 
         val btnFr1: Button = view.findViewById(R.id.fr1Btn)
-        val tvFr1: TextView = view.findViewById(R.id.tvfr1)
+        val tvFr1: TextView = view.findViewById(R.id.tvfr2)
 
         btnFr1.setOnClickListener {
             tvFr1.text = "Change text to get text"
