@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         btn1.setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.frameLayout, firstFragment)
+                addToBackStack(null)
                 commit()
 
                 mainActivityTv.visibility = INVISIBLE
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         btn2.setOnClickListener {
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.frameLayout, secondFragment)
+                addToBackStack(null)
                 commit()
 
                 mainActivityTv.visibility = INVISIBLE
