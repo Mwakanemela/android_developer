@@ -20,13 +20,39 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/sendTextBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Text"
+        app:layout_constraintBottom_toBottomOf="@+id/fr1Btn"
+        app:layout_constraintEnd_toStartOf="@+id/fr1Btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fr1Btn" />
+
+    <Button
         android:id="@+id/fr1Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Change Text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvfr2"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/tvfr2"
         app:layout_constraintTop_toBottomOf="@+id/tvfr2"
-        app:layout_constraintVertical_bias="0.101" />
+        app:layout_constraintVertical_bias="0.171" />
+
+    <EditText
+        android:id="@+id/fr1Et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="65dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Write something..."
+        app:layout_constraintBottom_toTopOf="@+id/tvfr2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
