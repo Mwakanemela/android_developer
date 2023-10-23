@@ -20,15 +20,18 @@ class FirstFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_first, container, false)
 
+        val myInterface : MyInterface = activity as MyInterface
+
         val fr1Vtb:Button = view.findViewById(R.id.btnFr1)
         val fr1Et:EditText = view.findViewById(R.id.edtFr1)
 
         fr1Vtb.setOnClickListener {
             val msg = fr1Et.text.toString().trim()
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            intent.putExtra("string", msg)
-
-            startActivity(intent)
+            myInterface.transferredMessage(msg)
+//            val intent = Intent(requireContext(), MainActivity::class.java)
+//            intent.putExtra("string", msg)
+//
+//            startActivity(intent)
         }
         return view
     }

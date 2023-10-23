@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MyInterface {
 
-    private lateinit var text:TextView
+    private lateinit var text1:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         val firstFragment = FirstFragment()
 
-        text = findViewById(R.id.txt1)
+        text1 = findViewById(R.id.txt1)
 
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.frameLayout, firstFragment)
@@ -24,10 +24,14 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        val intent = Intent()
+//        val intent = Intent()
+//
+//        val stringText = intent.getStringExtra("string")
+//        text1.text = stringText
+//        Toast.makeText(this, stringText, Toast.LENGTH_SHORT).show()
+    }
 
-        val stringText = intent.getStringExtra("string")
-        text.text = stringText
-        Toast.makeText(this, stringText, Toast.LENGTH_SHORT).show()
+    override fun transferredMessage(msg: String) {
+        text1.text = msg
     }
 }
